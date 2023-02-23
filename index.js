@@ -17,7 +17,8 @@ hexo.extend.filter.register('after_post_render', function(data){
 	   var beginPos = getPosition(link, '/', 3) + 1;
 	// In hexo 3.1.1, the permalink of "about" page is like ".../about/index.html".
 	// var endPos = link.lastIndexOf('/') + 1;
-	var endPos = getPosition(link,'.',1)+1;
+	// http://landv.cn/posts/uncategorized/pic/cb34514e.html
+	var endPos = getPosition(link,'.',2)+1;
     link = link.substring(beginPos, endPos);
 
     var toprocess = ['excerpt', 'more', 'content'];
