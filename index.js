@@ -1,6 +1,6 @@
 'use strict';
 var cheerio = require('cheerio');
-
+// 如何获得字符串中的第 n 次出现
 // http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string
 function getPosition(str, m, i) {
   return str.split(m, i).join(m).length;
@@ -16,7 +16,8 @@ hexo.extend.filter.register('after_post_render', function(data){
 	else
 	   var beginPos = getPosition(link, '/', 3) + 1;
 	// In hexo 3.1.1, the permalink of "about" page is like ".../about/index.html".
-	var endPos = link.lastIndexOf('/') + 1;
+	// var endPos = link.lastIndexOf('/') + 1;
+	var endPos = getPosition(link,'.',1)+1;
     link = link.substring(beginPos, endPos);
 
     var toprocess = ['excerpt', 'more', 'content'];
@@ -36,7 +37,9 @@ hexo.extend.filter.register('after_post_render', function(data){
 			var src = $(this).attr('src').replace('\\', '/');
 			if(!/http[s]*.*|\/\/.*/.test(src) &&
 			   !/^\s*\//.test(src)) {
+			  //对于“about”页面，不能删除“src”的第一部分。
 			  // For "about" page, the first part of "src" can't be removed.
+			  // 另外，支持多级本地目录。
 			  // In addition, to support multi-level local directory.
 			  var linkArray = link.split('/').filter(function(elem){
 				return elem != '';
