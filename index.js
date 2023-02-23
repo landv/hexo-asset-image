@@ -18,7 +18,7 @@ hexo.extend.filter.register('after_post_render', function(data){
 	// In hexo 3.1.1, the permalink of "about" page is like ".../about/index.html".
 	// var endPos = link.lastIndexOf('/') + 1;
 	// http://landv.cn/posts/uncategorized/pic/cb34514e.html
-	var endPos = getPosition(link,'.',2)+1;
+	var endPos = getPosition(link,'.',2);
     link = link.substring(beginPos, endPos);
 
     var toprocess = ['excerpt', 'more', 'content'];
@@ -51,8 +51,8 @@ hexo.extend.filter.register('after_post_render', function(data){
 			  if(srcArray.length > 1)
 				srcArray.shift();
 			  src = srcArray.join('/');
-			  $(this).attr('src', config.root + link + src);
-			  console.info&&console.info("update link as:-->"+config.root + link + src);
+			  $(this).attr('src', config.root + link +'/' + src);
+			  console.info&&console.info("update link as:-->"+config.root + link +'/' + src);
 			}
 		}else{
 			console.info&&console.info("no src attr, skipped...");
